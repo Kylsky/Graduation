@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,8 +101,16 @@ public class AdminBulletinController {
     @PutMapping("/pubBulletin")
     public Object pubBulletin(Bulletin bulletin, HttpSession session) {
         try {
+            Bulletin lastBulletin = bulletinService.getLastBulletin();
+            Bulletin newBulletin = new Bulletin();
+            newBulletin.setId(lastBulletin.getId());
+            newBulletin.setStatus("D");
+            bulletinService.doEdit(newBulletin);
             Merchant merchant = (Merchant) session.getAttribute("LOGIN_MERCHANT");
             bulletin.setPublishId(merchant.getId());
+            bulletin.setCreateTime(new Date());
+            bulletin.setUpdateTime(new Date());
+            bulletin.setStatus("E");
             int res = bulletinService.doAdd(bulletin);
             return res>0?Result.success(bulletin):Result.error("发布公告失败");
         } catch (Exception e) {

@@ -3,7 +3,7 @@
 <#assign base=request.contextPath />
 <head>
     <meta charset="utf-8">
-    <title>北墘小屋</title>
+    <title>宿派后台管理系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -71,7 +71,7 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo">
-                    <cite><i class="fa fa-home"></i><span>北墘小屋</span></cite>
+                    <cite><i class="fa fa-home"></i><span>宿派管理</span></cite>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"

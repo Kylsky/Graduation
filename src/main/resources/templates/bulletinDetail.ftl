@@ -6,7 +6,7 @@
 <#assign base=request.contextPath />
 <head>
     <meta charset="UTF-8">
-    <title>北墘小屋</title>
+    <title>宿派后台管理系统</title>
     <!--Layui-->
     <link rel="stylesheet" href="${base}/plugins/layui/css/layui.css">
 </head>

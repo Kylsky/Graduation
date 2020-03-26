@@ -69,30 +69,30 @@
                 <blockquote class="layui-elem-quote layui-text" style="width: 300px">
                     属性部分
                 </blockquote>
-                <div class="layui-form-item" style="display: inline-block">
-                    <label class="layui-form-label">卧室数量：</label>
-                    <div class="layui-input-inline" style="width: 70px;">
-                        <input disabled value="${roomInfo.propertyInfo.bedRoomCount!}" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item" style="display: inline-block">
-                    <label class="layui-form-label">床位数量：</label>
-                    <div class="layui-input-inline" style="width: 70px;">
-                        <input disabled value="${roomInfo.propertyInfo.bedCount!}" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item" style="display: inline-block">
-                    <label class="layui-form-label">卫生间数量：</label>
-                    <div class="layui-input-inline" style="width: 70px;">
-                        <input disabled value="${roomInfo.propertyInfo.bathRoomCount!}" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item" style="display: inline-block">
-                    <label class="layui-form-label">最多可住：</label>
-                    <div class="layui-input-inline" style="width: 70px;">
-                        <input disabled value="${roomInfo.propertyInfo.peopleCount!}" class="layui-input">
-                    </div>
-                </div>
+<#--                <div class="layui-form-item" style="display: inline-block">-->
+<#--                    <label class="layui-form-label">卧室数量：</label>-->
+<#--                    <div class="layui-input-inline" style="width: 70px;">-->
+<#--                        <input disabled value="${roomInfo.propertyInfo.bedRoomCount!}" class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
+<#--                <div class="layui-form-item" style="display: inline-block">-->
+<#--                    <label class="layui-form-label">床位数量：</label>-->
+<#--                    <div class="layui-input-inline" style="width: 70px;">-->
+<#--                        <input disabled value="${roomInfo.propertyInfo.bedCount!}" class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
+<#--                <div class="layui-form-item" style="display: inline-block">-->
+<#--                    <label class="layui-form-label">卫生间数量：</label>-->
+<#--                    <div class="layui-input-inline" style="width: 70px;">-->
+<#--                        <input disabled value="${roomInfo.propertyInfo.bathRoomCount!}" class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
+<#--                <div class="layui-form-item" style="display: inline-block">-->
+<#--                    <label class="layui-form-label">最多可住：</label>-->
+<#--                    <div class="layui-input-inline" style="width: 70px;">-->
+<#--                        <input disabled value="${roomInfo.propertyInfo.peopleCount!}" class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
                 <blockquote class="layui-elem-quote layui-text" style="width: 300px">
                     运营部分
                 </blockquote>

@@ -5,7 +5,7 @@
 <#assign base=request.contextPath />
 <head>
     <meta charset="utf-8">
-    <title>后台管理</title>
+    <title>宿派后台管理系统</title>
     <!--Base-->
     <script src="${base}/js/jquery-1.11.2.min.js" type="application/javascript"></script>
     <script src="${base}/js/base.js"></script>

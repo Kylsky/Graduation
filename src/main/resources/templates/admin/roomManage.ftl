@@ -6,7 +6,7 @@
 <#assign base=request.contextPath />
 <head>
     <meta charset="UTF-8">
-    <title>北墘小屋</title>
+    <title>宿派后台管理系统</title>
     <!--Base-->
     <script src="${base}/js/jquery-1.11.2.min.js" type="application/javascript"></script>
     <script src="${base}/js/base.js"></script>
@@ -25,7 +25,7 @@
         <div class="layui-card-body">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div id="search_area">
-                    <label>资讯内容：</label>
+                    <label>房间名称：</label>
                     <div class="layui-inline">
                         <input class="layui-input" id="content" autocomplete="off">
                     </div>

@@ -100,6 +100,12 @@
                     </#if>
                     <#if MLEVEL == 'ADMIN'>
                         <li data-name="home" class="layui-nav-item">
+                            <a lay-href="/admin/orderManage" href="javascript:;" lay-tips="房源中心" lay-direction="2">
+                                <i class="layui-icon layui-icon-rmb"></i>
+                                <cite>订单管理</cite>
+                            </a>
+                        </li>
+                        <li data-name="home" class="layui-nav-item">
                             <a lay-href="/admin/roomManage" href="javascript:;" lay-tips="房源中心" lay-direction="2">
                                 <i class="layui-icon layui-icon-home"></i>
                                 <cite>房源管理</cite>

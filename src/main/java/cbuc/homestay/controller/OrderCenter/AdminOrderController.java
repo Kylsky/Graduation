@@ -50,7 +50,7 @@ public class AdminOrderController {
         return "admin/orderManage";
     }
 
-    @ApiOperation("获取房源列表")
+    @ApiOperation("获取订单列表")
     @ResponseBody
     @GetMapping("/orderManagePage")
     public Object roomManagePage(@RequestParam(value = "current", defaultValue = "1") Integer pn,

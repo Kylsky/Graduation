@@ -22,7 +22,7 @@ public class Swagger2 {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cbuc.homestay"))
+                .apis(RequestHandlerSelectors.basePackage("homestay"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -30,7 +30,7 @@ public class Swagger2 {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Cbuc")
-                .description("-----------------北墘民宿搭建，持续更新中...-----------------")
+                .description("-----------------B&B system management...-----------------")
                 .contact("@Cbuc")
                 .build();
     }

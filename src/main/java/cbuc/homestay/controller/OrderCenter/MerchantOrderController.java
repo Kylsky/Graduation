@@ -1,10 +1,7 @@
 package cbuc.homestay.controller.OrderCenter;
 
 import cbuc.homestay.base.Result;
-import cbuc.homestay.bean.Image;
-import cbuc.homestay.bean.Merchant;
-import cbuc.homestay.bean.Order;
-import cbuc.homestay.bean.RoomInfo;
+import cbuc.homestay.bean.*;
 import cbuc.homestay.evt.RoomInfoEvt;
 import cbuc.homestay.mapper.PropertyMapper;
 import cbuc.homestay.service.ImageService;
@@ -20,12 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -55,6 +50,9 @@ public class MerchantOrderController {
 
     @Autowired
     private PropertyMapper propertyMapper;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @ApiOperation("跳转订单管理界面")
     @GetMapping("/toOrder")
@@ -173,4 +171,29 @@ public class MerchantOrderController {
 //        int res = imageService.doDel(url);
 //        return res>0?Result.success():Result.error();
 //    }
+
+    @ApiOperation("提交订单")
+    @ResponseBody
+    @RequestMapping("/addOrder")
+    public Result addOrder(@RequestBody WxOrder order){
+        int result = jdbcTemplate.update("insert into wx_order values (null,?,?,?,?,?,?,?,?,?,?)",new Object[]{
+                order.getOrderId(),
+                order.getOrderNumber(),
+                order.getOrderStatusLabel(),
+                order.getUnitName(),
+                order.getCheckInDate(),
+                order.getCheckOutDate(),
+                order.getTotalUnitAmount(),
+                order.getOrderStatus(),
+                order.getMasterPhone(),
+                order.getPayStatus()
+        });
+
+        if (result>0){
+            return Result.success("添加成功");
+        }
+        else{
+            return Result.error("添加失败");
+        }
+    }
 }

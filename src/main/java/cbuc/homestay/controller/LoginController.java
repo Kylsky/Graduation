@@ -36,7 +36,7 @@ import java.util.Objects;
 @Controller
 @Api(value = "登录操作控制器", description = "处理登录相关操作")
 public class LoginController {
-public static  int  x =10;
+    public static int x = 10;
     @Autowired
     private CacheUtil cacheUtil;
 
@@ -54,7 +54,7 @@ public static  int  x =10;
     @PostMapping("/doLogin")
     public Object doLogin(UserEvt userEvt, HttpSession session) {
         try {
-            if (!userEvt.getMaccount().isEmpty()){
+            if (!userEvt.getMaccount().isEmpty()) {
                 userEvt.setMphone(userEvt.getMaccount());
 
             }
@@ -62,7 +62,7 @@ public static  int  x =10;
 //            Integer error_count = cacheUtil.get("login_error_count");
             Merchant merchant = merchantService.queryDetail(userEvt);
 //            Merchant merchant = new Merchant();
-            if (Objects.isNull(merchant)){
+            if (Objects.isNull(merchant)) {
                 return Result.error("用户不存在，请尝试重新输入手机号并获取验证码！");
 
             }
@@ -79,7 +79,7 @@ public static  int  x =10;
 ////            }
 //            else
             //用户存在，校验验证码，正确则返回用户数据
-                if (userEvt.getMaccount().isEmpty()&&!merchant.getMpwd().equals(userEvt.getMsgCode())) {
+            if (userEvt.getMaccount().isEmpty() && !merchant.getMpwd().equals(userEvt.getMpwd())) {
                 return Result.error(512, "验证码不正确,请重新输入");
             } else {
                 session.setAttribute("LOGIN_MERCHANT", merchant);
@@ -104,13 +104,13 @@ public static  int  x =10;
             Merchant merchant = merchantService.queryDetail(userEvt);
             String randomCode = SendMessageUtil.getRandomCode(6);
             //不存在则新建，并存入手机和验证码，存在则更新验证码
-            if (Objects.isNull(merchant)){
+            if (Objects.isNull(merchant)) {
                 Merchant merchant1 = new Merchant();
                 merchant1.setMphone(smsMob);
                 merchant1.setMpwd(randomCode);
 //                merchant1.setCreateTime(new Date());
                 merchantService.doAdd(merchant1);
-            }else {
+            } else {
                 userEvt.setMpwd(randomCode);
                 merchantService.doEdit(userEvt);
             }

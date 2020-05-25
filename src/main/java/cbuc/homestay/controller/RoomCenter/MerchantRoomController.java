@@ -12,12 +12,14 @@ import cbuc.homestay.utils.QiniuCloudUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -41,6 +45,8 @@ import java.util.UUID;
 @RequestMapping("merchant")
 @Api(value = "商户端房源控制器", description = "用来管理房源相关业务")
 public class MerchantRoomController {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private RoomInfoService roomInfoService;
@@ -167,5 +173,65 @@ public class MerchantRoomController {
         QiniuCloudUtil.delete(target);
         int res = imageService.doDel(url);
         return res>0?Result.success():Result.error();
+    }
+
+    @RequestMapping("/houselist")
+    @ResponseBody
+    public Result getHouseList(){
+        List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from wx_room");
+        list.forEach(room->{
+            if (room.get("rules")!=null){
+                room.put("rules",room.get("rules").toString().split(","));
+            }
+            if (room.get("advantage")!=null){
+                room.put("advantage",room.get("advantage").toString().split(","));
+            }
+            if (room.get("activity")!=null){
+                room.put("activity",room.get("activity").toString().split(","));
+            }
+
+        });
+        Map map = new HashMap();
+        map.put("houselist",list);
+        return Result.success(map);
+
+    }
+
+    @RequestMapping("getAllRoomDetail")
+    @ResponseBody
+    public Result getAllRoomDetail(){
+        Map<String,Object> result = new HashMap<>();
+        List<Map<String,Object>> roomList = jdbcTemplate.queryForList("select * from wx_room_detail");
+        Object[] resultArr = new Object[roomList.size()];
+        roomList.forEach(room->{
+            Integer roomId = (Integer) room.get("room_id");
+            //处理数组
+            String bedTypeList = room.get("bedTypeList").toString();
+            if (StringUtils.isNotBlank(bedTypeList)){
+                room.put("bedTypeList",bedTypeList.split(","));
+            }
+            //根据roomId获取图片
+            List<Map<String,Object>> imgs = jdbcTemplate.queryForList("select path from wx_room_img where room_id=?",new Object[]{roomId});
+            Object[] imgArr = new Object[imgs.size()];
+            for (int i = 0; i < imgs.size(); i++) {
+                imgArr[i] = imgs.get(i);
+            }
+            room.put("ImageList",imgArr);
+
+            //根据roomId获取detail
+            List<Map<String,Object>> tags = jdbcTemplate.queryForList("select tags from wx_detail where room_id =?",new Object[]{roomId});
+            room.put("room_detail",tags);
+
+            //根据roomId获取介绍
+            List<Map<String,Object>> introduces = jdbcTemplate.queryForList("select room_special,room_intduce from wx_room_introduce where room_id =?",new Object[]{roomId});
+            Map<String,Object> introduce = introduces.get(0);
+            room.put("introduction",introduce);
+        });
+
+        for (int i = 0; i < roomList.size(); i++) {
+            resultArr[i] = roomList.get(i);
+        }
+        result.put("houseDetailList",resultArr);
+        return Result.success(result);
     }
 }

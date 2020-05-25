@@ -15,11 +15,14 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Explain: 管理员之房源管理控制器
@@ -32,7 +35,8 @@ import java.util.List;
 @RequestMapping("/admin")
 @Api(value = "管理员之房源管理控制器", description = "管理房源相关内容")
 public class AdminRoomController {
-
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     @Autowired
     private RoomInfoService roomInfoService;
 
@@ -99,5 +103,15 @@ public class AdminRoomController {
         roomInfo.setImages(images);
         model.addAttribute("roomInfo", roomInfo);
         return "roomDetail";
+    }
+
+    @RequestMapping("/houselist")
+    @ResponseBody
+    public Result getHouseList(){
+        List list = jdbcTemplate.queryForList("select * from wx_room");
+        Map map = new HashMap();
+        map.put("houselist",list);
+        return Result.success(map);
+
     }
 }

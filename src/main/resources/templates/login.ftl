@@ -18,7 +18,7 @@
 <hgroup>
     <h1>民宿后台登录</h1>
 </hgroup>
-<form class="formDate">
+<form id="formDate" class="formDate">
     <div class="group">
         <input type="text" name="maccount" id="maccount" >
         <span class="highlight"></span><span class="bar"></span>
@@ -46,7 +46,7 @@
     </button>
     <h4 class="forget">忘记密码</h4>
 </form>
-<form class="forgetForm" style="display: none">
+<form id="forgetForm" class="forgetForm" style="display: none">
     <div class="group">
         <input type="text" name="mphone" id="for_phone" maxlength="11"><span class="highlight"></span><span class="bar"></span>
         <label>手机号码</label>

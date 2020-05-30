@@ -66,9 +66,9 @@
                         </#list>
                     </div>
                 </div>
-                <blockquote class="layui-elem-quote layui-text" style="width: 300px">
-                    属性部分
-                </blockquote>
+<#--                <blockquote class="layui-elem-quote layui-text" style="width: 300px">-->
+<#--                    属性部分-->
+<#--                </blockquote>-->
 <#--                <div class="layui-form-item" style="display: inline-block">-->
 <#--                    <label class="layui-form-label">卧室数量：</label>-->
 <#--                    <div class="layui-input-inline" style="width: 70px;">-->
@@ -103,7 +103,7 @@
                     <#else >
                         <#if roomInfo.status == 'FR'>
                             <span>空闲中</span>
-                        <#elseif rooomInfo.status == 'B'>
+                        <#elseif roomInfo.status == 'B'>
                             <span>已预订</span>
                         <#else >
                             <span>已下架</span>

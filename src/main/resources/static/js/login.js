@@ -142,9 +142,10 @@ $(() => {
             return
         }
         Base.ajax("/doForget", "POST", $(".forgetForm").serialize(), (res) => {
-            debugger
             if (res.code == Base.status.success) {
                 layer.msg("修改成功!", {icon: 6, time: 800, anim: 1});
+                $("#formDate").show();
+                $("#forgetForm").hide();
                 setTimeout(() => {
                     $(".forgetForm")[0].reset();
                     clearInterval(timer);
@@ -152,8 +153,6 @@ $(() => {
                     $("#getCode").val("获取验证码");
                     $("#getCode").removeClass("on");
                     $("h1").html("民宿后台登录");
-                    $(".formDate").show();
-                    $(".forgetForm").hide();
                 }, 800)
             }
         });

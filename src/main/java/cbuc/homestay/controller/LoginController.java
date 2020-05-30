@@ -120,7 +120,7 @@ public class LoginController {
 //                return Result.error("该号码不存在,请在小程序端申请入驻");
 //            }
 //            session.setAttribute("KAPTCHA_SESSION_KEY", randomCode);
-//            session.setAttribute("MESSAGE_CODE", randomCode);
+            session.setAttribute("MESSAGE_CODE", randomCode);
 //            session.setMaxInactiveInterval(1000 * 60);
 //            Integer resultCode = SendMessageUtil.send(uid, sendMsg, smsMob, "您的短信验证码为:" + randomCode);    //TODO 实际启用短信
             Integer resultCode = 1;

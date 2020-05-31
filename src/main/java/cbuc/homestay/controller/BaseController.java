@@ -54,6 +54,7 @@ public class BaseController {
     @PutMapping("/sendMsg")
     public Object doSendMsg(Message message) {
         try {
+            message.setStatus("1");
             int res = messageService.doAdd(message);
             return res > 0 ? Result.success() : Result.error("发送消息失败");
         } catch (Exception e) {

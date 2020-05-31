@@ -25,7 +25,7 @@
         <div class="layui-card-body">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div id="search_area">
-                    <label>资讯内容：</label>
+                    <label>订单号：</label>
                     <div class="layui-inline">
                         <input class="layui-input" id="content" autocomplete="off">
                     </div>

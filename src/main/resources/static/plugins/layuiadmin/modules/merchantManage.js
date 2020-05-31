@@ -180,7 +180,7 @@ layui.define(["form", "table", "element"], function (exports) {
             });
         }else if (obj.event == 'enable') {
             layer.confirm('是否启用该商户?', {icon: 3, title:'提示'}, function(index){
-                Base.ajax("/admin/opeMerchant","POST",{'id':data.id,'status':'E'},(res)=>{
+                Base.ajax("/admin/opeMerchant","POST",{'id':data.id,'status':'E',"mphone":data.mphone},(res)=>{
                     if (res.code === Base.status.success) {
                         layer.msg("操作成功",{icon:6,time:800});
                         setTimeout(()=>{

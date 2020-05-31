@@ -5,6 +5,7 @@ import cbuc.homestay.bean.Merchant;
 import cbuc.homestay.evt.UserEvt;
 import cbuc.homestay.service.MerchantService;
 import cbuc.homestay.utils.CacheUtil;
+import cbuc.homestay.utils.DesUtil;
 import cbuc.homestay.utils.SendMessageUtil;
 import com.google.code.kaptcha.Constants;
 import io.swagger.annotations.Api;
@@ -79,8 +80,8 @@ public class LoginController {
 ////            }
 //            else
             //用户存在，校验验证码，正确则返回用户数据
-            if (userEvt.getMaccount().isEmpty() && !merchant.getMpwd().equals(userEvt.getMpwd())) {
-                return Result.error(512, "验证码不正确,请重新输入");
+            if (userEvt.getMaccount().isEmpty() || !merchant.getMpwd().equals(DesUtil.encrypt(userEvt.getMpwd()))) {
+                return Result.error(512, "账号或密码不正确,请重新输入");
             } else {
                 session.setAttribute("LOGIN_MERCHANT", merchant);
                 session.setMaxInactiveInterval(30 * 60);
@@ -107,12 +108,12 @@ public class LoginController {
             if (Objects.isNull(merchant)) {
                 Merchant merchant1 = new Merchant();
                 merchant1.setMphone(smsMob);
-                merchant1.setMpwd(randomCode);
+                merchant1.setMpwd(DesUtil.encrypt(smsMob));
 //                merchant1.setCreateTime(new Date());
                 merchantService.doAdd(merchant1);
             } else {
-                userEvt.setMpwd(randomCode);
-                merchantService.doEdit(userEvt);
+//                userEvt.setMpwd(randomCode);
+//                merchantService.doEdit(userEvt);
             }
 
 //            Merchant merchant = merchantService.queryDetail(userEvt);
@@ -151,6 +152,7 @@ public class LoginController {
             } else if (Objects.isNull(merchant)) {
                 return Result.error(524, "该用户不存在,请申请入驻后登录");
             }
+            userEvt.setMpwd(DesUtil.encrypt(userEvt.getNpwd()));
             userEvt.setId(merchant.getId());
             int res = merchantService.doEdit(userEvt);
             if (res > 0) {
@@ -179,10 +181,11 @@ public class LoginController {
     public Object doModPwd(UserEvt userEvt, HttpSession session) {
         try {
             Merchant merchant = (Merchant) session.getAttribute("LOGIN_MERCHANT");
-            if (!userEvt.getMpwd().equals(merchant.getMpwd())) {
+            if (!DesUtil.encrypt(userEvt.getMpwd()).equals(merchant.getMpwd())) {
                 return Result.error("旧密码不正确,请重新输入");
             }
             userEvt.setId(merchant.getId());
+            userEvt.setMpwd(userEvt.getNpwd());
             int res = merchantService.doEdit(userEvt);
             if (res > 0) {
                 session.removeAttribute("LOGIN_MERCHANT");

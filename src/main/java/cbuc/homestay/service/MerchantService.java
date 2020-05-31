@@ -48,8 +48,15 @@ public class MerchantService {
 
     public int doEdit(UserEvt userEvt) {
         Merchant merchant = new Merchant();
-        merchant.setMphone(userEvt.getMphone());
-        merchant.setMpwd(userEvt.getMpwd());
+        if (userEvt.getMphone()!=null){
+            merchant.setMphone(userEvt.getMphone());
+        }
+        if (userEvt.getMpwd()!=null){
+            merchant.setMpwd(userEvt.getMpwd());
+        }
+        if (userEvt.getStatus()!=null){
+            merchant.setStatus(userEvt.getStatus());
+        }
 //        merchant.setUpdateTime(new Date());
         MerchantExample merchantExample = new MerchantExample();
         MerchantExample.Criteria criteria = merchantExample.createCriteria();

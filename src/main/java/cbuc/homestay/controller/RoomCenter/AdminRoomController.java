@@ -112,6 +112,5 @@ public class AdminRoomController {
         Map map = new HashMap();
         map.put("houselist",list);
         return Result.success(map);
-
     }
 }
